@@ -3,9 +3,9 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import ForYouTab from './AuthTabs/ForYou';
 import ExploreTab from './AuthTabs/Explore';
 import AccountsTab from './AuthTabs/AccountsTab';
+import ForYouTopTabs from './AuthTabs/ForYou';
 
 const AuthTabs = createBottomTabNavigator();
 
@@ -32,7 +32,7 @@ const AuthTabNavigation = () => {
       }}>
       <AuthTabs.Screen
         name="For You"
-        component={ForYouTab}
+        component={ForYouTopTabs}
         options={{
           tabBarIcon: ({focused}) => (
             <Ionicons
