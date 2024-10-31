@@ -2,6 +2,7 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import {
   Animated,
   Dimensions,
+  ImageBackground,
   StyleSheet,
   TouchableOpacity,
   View,
@@ -10,13 +11,25 @@ import {
 import Suggested from './ForYou/Suggested';
 import Liked from './ForYou/Liked';
 import Library from './ForYou/Library';
-
+import profileImage from '../../assets/profile.jpg';
 const Tab = createMaterialTopTabNavigator();
 
 const CustomTopTabBar = ({state, descriptors, navigation, position}) => {
   return (
     <View style={styles.container}>
-      <View style={styles.profile}></View>
+      <View style={styles.profileContainer}>
+        <View style={styles.profile}>
+          <ImageBackground
+            source={profileImage}
+            width={120}
+            height={120}
+            style={{
+              flex: 1,
+            }}
+            resizeMode="cover"
+          />
+        </View>
+      </View>
       <View style={{flexDirection: 'row'}}>
         {state.routes.map((route, index) => {
           const {options} = descriptors[route.key];
@@ -66,7 +79,6 @@ const CustomTopTabBar = ({state, descriptors, navigation, position}) => {
               style={{
                 flex: 1,
                 height: 60,
-                backgroundColor: 'grey',
                 paddingHorizontal: 4,
               }}
               key={index}>
@@ -77,7 +89,13 @@ const CustomTopTabBar = ({state, descriptors, navigation, position}) => {
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}>
-                  <Animated.Text style={styles.tabText}>{label}</Animated.Text>
+                  <Animated.Text
+                    style={[
+                      styles.tabText,
+                      {color: `${isFocused ? 'white' : 'grey'}`},
+                    ]}>
+                    {label}
+                  </Animated.Text>
                 </Animated.View>
 
                 <Animated.View style={styles.borderBottom} />
@@ -113,13 +131,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  profileContainer: {
+    height: 140,
+    backgroundColor: '#0B192C',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   profile: {
-    height: 100,
-    backgroundColor: 'white',
+    borderColor: 'white',
+    borderWidth: 1,
+    height: 120,
+    width: 120,
+    borderRadius: 60,
+    overflow: 'hidden',
   },
   borderBottom: {
     height: 6,
-    backgroundColor: '#FFA500',
+    backgroundColor: '#FF6500',
     marginTop: 'auto',
     borderRadius: 8,
     marginBottom: 2,
