@@ -5,19 +5,31 @@ import {
   ImageBackground,
   StyleSheet,
   TouchableOpacity,
+  useColorScheme,
   View,
 } from 'react-native';
 
 import Suggested from './ForYou/Suggested';
 import Liked from './ForYou/Liked';
 import Library from './ForYou/Library';
+
 import profileImage from '../../assets/profile.jpg';
+
 const Tab = createMaterialTopTabNavigator();
 
 const CustomTopTabBar = ({state, descriptors, navigation, position}) => {
+  const theme = useColorScheme();
+
+  const focusedColor = theme === 'dark' ? '#EEEEEE' : '#222831';
+  const unfocusedColor = '#697565';
+
   return (
     <View style={styles.container}>
-      <View style={styles.profileContainer}>
+      <View
+        style={[
+          styles.profileContainer,
+          {backgroundColor: theme === 'dark' ? '#0B192C' : 'white'},
+        ]}>
         <View style={styles.profile}>
           <ImageBackground
             source={profileImage}
@@ -65,7 +77,7 @@ const CustomTopTabBar = ({state, descriptors, navigation, position}) => {
           const inputRange = state.routes.map((_, i) => i);
           const opacity = position.interpolate({
             inputRange,
-            outputRange: inputRange.map(i => (i === index ? 1 : 0)),
+            outputRange: inputRange.map(i => (i === index ? 1 : 0.8)),
           });
 
           return (
@@ -92,13 +104,15 @@ const CustomTopTabBar = ({state, descriptors, navigation, position}) => {
                   <Animated.Text
                     style={[
                       styles.tabText,
-                      {color: `${isFocused ? 'white' : 'grey'}`},
+                      {
+                        color: isFocused ? focusedColor : unfocusedColor,
+                      },
                     ]}>
                     {label}
                   </Animated.Text>
                 </Animated.View>
 
-                <Animated.View style={styles.borderBottom} />
+                <Animated.View style={isFocused && styles.borderBottom} />
               </Animated.View>
             </TouchableOpacity>
           );
@@ -120,22 +134,21 @@ const ForYouTopTabs = () => {
         lazy: true,
       }}
       tabBar={props => <CustomTopTabBar {...props} />}>
-      <Tab.Screen name="suggested" component={Suggested} />
-      <Tab.Screen name="liked" component={Liked} />
-      <Tab.Screen name="library" component={Library} />
+      <Tab.Screen name="Suggested" component={Suggested} />
+      <Tab.Screen name="Liked" component={Liked} />
+      <Tab.Screen name="Library" component={Library} />
     </Tab.Navigator>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+  container: {},
   profileContainer: {
     height: 140,
-    backgroundColor: '#0B192C',
     alignItems: 'center',
     justifyContent: 'center',
+    borderBottomRightRadius: 14,
+    borderBottomLeftRadius: 14,
   },
   profile: {
     borderColor: 'white',
