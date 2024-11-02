@@ -8,13 +8,12 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 import {AxiosUnsplashInstance} from '../../../api/api';
+import ForYouImageCard from '../../../components/cards/ForYouImageCard';
 
 const Suggested = () => {
   const [pexelsImages, setPexelsImages] = useState([]);
-  const [isFavorite, setIsFavorite] = useState(false);
 
   const getPexelsData = async () => {
     try {
@@ -40,29 +39,7 @@ const Suggested = () => {
         keyExtractor={item => item.id}
         numColumns={2}
         contentContainerStyle={styles.container}
-        renderItem={({item}) => (
-          <TouchableOpacity
-            style={styles.box}
-            onPress={() => {
-              console.log(item.id);
-            }}>
-            <Image source={{uri: item.urls.regular}} style={styles.image} />
-
-            <View style={styles.bottomSection}>
-              <Text numberOfLines={1}>
-                {item.description
-                  ? item.description
-                  : 'Description Unavailable'}
-              </Text>
-              <TouchableOpacity onPress={() => setIsFavorite(!isFavorite)}>
-                <MaterialIcon
-                  name={isFavorite ? 'favorite' : 'favorite-outline'}
-                  size={20}
-                />
-              </TouchableOpacity>
-            </View>
-          </TouchableOpacity>
-        )}
+        renderItem={({item}) => <ForYouImageCard key={item.id} item={item} />}
       />
     </View>
   );
