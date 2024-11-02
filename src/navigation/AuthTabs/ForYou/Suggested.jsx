@@ -51,39 +51,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 4,
     paddingVertical: 12,
   },
-  box: {
-    flex: 1,
-    marginHorizontal: 6,
-    marginVertical: 12,
-    position: 'relative',
-    borderRadius: 12,
-    overflow: 'hidden',
-  },
-  image: {
-    width: '100%',
-    height: 260,
-  },
-  bottomSection: {
-    position: 'absolute',
-    width: '100%',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    height: 48,
-    flexDirection: 'row',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    zIndex: 99,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: 4,
-  },
-  bottomSectionText: {
-    width: '60%',
-    fontWeight: '800',
-    fontSize: 12,
-  },
 });
 
 export default Suggested;

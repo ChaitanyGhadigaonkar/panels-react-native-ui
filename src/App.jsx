@@ -19,7 +19,7 @@ function App() {
       ...DefaultTheme.colors,
       primary: '#00ADB5',
       background: currentTHeme === 'dark' ? '#222831' : '#EEEEEE',
-      text: currentTHeme !== 'dark' ? '#222831' : '#EEEEEE',
+      text: currentTHeme !== 'dark' ? 'black' : 'white',
     },
   };
   const isAuthenticated = false;

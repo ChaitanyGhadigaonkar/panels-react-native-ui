@@ -14,7 +14,7 @@ const ForYouImageCard = ({item}) => {
       <Image source={{uri: item.urls.regular}} style={styles.image} />
 
       <View style={styles.bottomSection}>
-        <Text numberOfLines={1}>
+        <Text numberOfLines={1} style={{color: 'white'}}>
           {item.description ? item.description : 'Description Unavailable'}
         </Text>
         <TouchableOpacity onPress={() => setIsFavorite(!isFavorite)}>
