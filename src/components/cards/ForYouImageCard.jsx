@@ -2,14 +2,14 @@ import {useState} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
-const ForYouImageCard = ({item}) => {
+const ForYouImageCard = ({item, setBottomSheetOpen}) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   return (
     <TouchableOpacity
       style={styles.box}
       onPress={() => {
-        console.log(item.id);
+        setBottomSheetOpen(true);
       }}>
       <Image source={{uri: item.urls.regular}} style={styles.image} />
 

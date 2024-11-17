@@ -3,7 +3,7 @@ import BottomSheet from '../../components/BottomSheet';
 import ThemeTypography from '../../components/theme/ThemeTypography';
 import {useState} from 'react';
 
-const ExploreTab = ({navigation}) => {
+const ExploreTab = () => {
   const [showBottomSheet, setShowBottomSheet] = useState(false);
   const BottomSheetComponent = ({closeBottomSheet}) => {
     return (
@@ -25,10 +25,7 @@ const ExploreTab = ({navigation}) => {
         onPress={() => setShowBottomSheet(true)}
       />
       {showBottomSheet && (
-        <BottomSheet
-          navigation={navigation}
-          isOpen={showBottomSheet}
-          setIsOpen={setShowBottomSheet}>
+        <BottomSheet isOpen={showBottomSheet} setIsOpen={setShowBottomSheet}>
           <BottomSheetComponent />
         </BottomSheet>
       )}

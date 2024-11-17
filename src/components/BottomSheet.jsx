@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import React, {Children, cloneElement, useEffect, useRef} from 'react';
 import {
   StyleSheet,
@@ -5,11 +6,17 @@ import {
   useColorScheme,
   Pressable,
   PanResponder,
+  Dimensions,
+  Modal,
 } from 'react-native';
 
-const BottomSheet = ({children, navigation, isOpen, setIsOpen}) => {
+const {height: screenHeight} = Dimensions.get('window');
+
+const BottomSheet = ({children, isOpen, setIsOpen, height = '60%'}) => {
   const slide = useRef(new Animated.Value(600)).current;
   const theme = useColorScheme();
+
+  const navigation = useNavigation();
 
   const slideUp = () => {
     Animated.timing(slide, {
@@ -90,41 +97,50 @@ const BottomSheet = ({children, navigation, isOpen, setIsOpen}) => {
   }, []);
 
   return (
-    <Pressable
-      style={styles.backdrop}
-      onPress={() => {
-        slideDown();
-        setTimeout(() => setIsOpen(false), 800);
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={isOpen}
+      onRequestClose={() => {
+        setIsOpen(false);
       }}>
-      <Animated.View
-        {...panResponder.panHandlers}
-        style={[
-          styles.bottomSheet,
-          {transform: [{translateY: slide}]},
-          {backgroundColor: theme === 'dark' ? '#222831' : '#EEEEEE'},
-        ]}>
-        {renderChildren()}
-      </Animated.View>
-    </Pressable>
+      <Pressable
+        style={styles.backdrop}
+        onPress={() => {
+          slideDown();
+          setTimeout(() => setIsOpen(false), 800);
+        }}>
+        <Animated.View
+          {...panResponder.panHandlers}
+          style={[
+            styles.bottomSheet,
+            {transform: [{translateY: slide}]},
+            {backgroundColor: theme === 'dark' ? '#222831' : '#EEEEEE'},
+            {height: height},
+          ]}>
+          {renderChildren()}
+        </Animated.View>
+      </Pressable>
+    </Modal>
   );
 };
 
 const styles = StyleSheet.create({
   backdrop: {
-    flex: 1,
     position: 'absolute',
     left: 0,
     top: 0,
     right: 0,
     bottom: 0,
     width: '100%',
-    height: '100%',
+    height: screenHeight,
     backgroundColor: 'rgba(0,0,0,0.5)',
     justifyContent: 'flex-end',
     zIndex: 999,
+    margin: 0,
+    elevation: 5,
   },
   bottomSheet: {
-    height: '80%',
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
     paddingVertical: 12,
