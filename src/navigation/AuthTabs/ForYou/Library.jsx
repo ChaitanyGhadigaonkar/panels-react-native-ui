@@ -1,5 +1,6 @@
 import LottieView from 'lottie-react-native';
 import {ScrollView, StyleSheet, Text, useColorScheme, View} from 'react-native';
+import ThemeTypography from '../../../components/theme/ThemeTypography';
 
 const Library = () => {
   const theme = useColorScheme();
@@ -7,18 +8,22 @@ const Library = () => {
     <ScrollView style={{flex: 1}}>
       {/* animation when user don't have favorite wallpapers */}
       <View style={styles.top}>
-        <Text style={[styles.topBottomText]}>No Favorite Found.</Text>
+        <ThemeTypography style={[styles.topBottomText]}>
+          No Favorite Found.
+        </ThemeTypography>
         <LottieView
           source={require('../../../assets/Lottie/favoriteLottie.json')}
           style={{width: 400, height: 200}}
           autoPlay
           loop
         />
-        <Text style={styles.topBottomText}>
+        <ThemeTypography style={styles.topBottomText}>
           (wallpapers you "like" will appear here.)
-        </Text>
+        </ThemeTypography>
       </View>
-      <Text style={styles.heading}>Suggestions for you</Text>
+      <ThemeTypography style={styles.heading}>
+        Suggestions for you
+      </ThemeTypography>
     </ScrollView>
   );
 };
