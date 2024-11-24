@@ -5,10 +5,13 @@ import {AxiosUnsplashInstance} from '../../../api/api';
 import ForYouImageCard from '../../../components/cards/ForYouImageCard';
 import BottomSheet from '../../../components/BottomSheet';
 import ThemeTypography from '../../../components/theme/ThemeTypography';
+import ProductDetailBottomSheet from '../../../components/ProductDetailBottomSheet';
 
 const Suggested = () => {
   const [pexelsImages, setPexelsImages] = useState([]);
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
+
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   const getPexelsData = async () => {
     try {
@@ -39,6 +42,7 @@ const Suggested = () => {
             key={item.id}
             item={item}
             setBottomSheetOpen={setBottomSheetOpen}
+            setSelectedProduct={setSelectedProduct}
           />
         )}
       />
@@ -49,9 +53,13 @@ const Suggested = () => {
           height="100%"
           isOpen={bottomSheetOpen}
           setIsOpen={setBottomSheetOpen}>
-          <View style={{flex: 1}}>
-            <ThemeTypography>Hello Bottom Sheet</ThemeTypography>
-          </View>
+          <ProductDetailBottomSheet
+            selectedProduct={selectedProduct}
+            setSelectedProduct={setSelectedProduct}
+            closeBottomSheet={() => {
+              setBottomSheetOpen(false);
+            }}
+          />
         </BottomSheet>
       )}
     </View>

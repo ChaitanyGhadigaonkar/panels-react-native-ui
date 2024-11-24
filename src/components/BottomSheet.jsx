@@ -107,11 +107,11 @@ const BottomSheet = ({children, isOpen, setIsOpen, height = '60%'}) => {
       <Pressable
         style={styles.backdrop}
         onPress={() => {
-          slideDown();
-          setTimeout(() => setIsOpen(false), 800);
+          // slideDown();
+          // setTimeout(() => setIsOpen(false), 800);
         }}>
         <Animated.View
-          {...panResponder.panHandlers}
+          // {...panResponder.panHandlers}
           style={[
             styles.bottomSheet,
             {transform: [{translateY: slide}]},
@@ -143,8 +143,8 @@ const styles = StyleSheet.create({
   bottomSheet: {
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
+    // paddingVertical: 12,
+    // paddingHorizontal: 16,
   },
 });
 export default BottomSheet;
