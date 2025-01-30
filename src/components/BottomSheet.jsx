@@ -5,7 +5,6 @@ import {
   Animated,
   useColorScheme,
   Pressable,
-  PanResponder,
   Dimensions,
   Modal,
 } from 'react-native';
@@ -21,7 +20,7 @@ const BottomSheet = ({children, isOpen, setIsOpen, height = '60%'}) => {
   const slideUp = () => {
     Animated.timing(slide, {
       toValue: 0,
-      duration: 800,
+      duration: 400,
       useNativeDriver: true,
     }).start();
   };
@@ -29,7 +28,7 @@ const BottomSheet = ({children, isOpen, setIsOpen, height = '60%'}) => {
   const slideDown = () => {
     Animated.timing(slide, {
       toValue: 600,
-      duration: 800,
+      duration: 400,
       useNativeDriver: true,
     }).start();
   };
@@ -39,30 +38,10 @@ const BottomSheet = ({children, isOpen, setIsOpen, height = '60%'}) => {
       cloneElement(child, {
         closeBottomSheet: () => {
           slideDown();
-          setTimeout(() => setIsOpen(false), 800);
+          setTimeout(() => setIsOpen(false), 400);
         },
       }),
     );
-
-  const panResponder = useRef(
-    PanResponder.create({
-      onMoveShouldSetPanResponder: (evt, gestureState) => {
-        return Math.abs(gestureState.dy) > 5;
-      },
-      onPanResponderMove: (evt, gestureState) => {
-        if (gestureState.dy > 0) {
-          slide.setValue(gestureState.dy);
-        }
-      },
-      onPanResponderRelease: (evt, gestureState) => {
-        if (gestureState.dy > 150) {
-          slideDown();
-        } else {
-          slideUp();
-        }
-      },
-    }),
-  ).current;
 
   useEffect(() => {
     // https://stackoverflow.com/questions/56745881/how-to-hide-bottom-navigation-bar-on-a-specific-screen-in-react-native
@@ -108,10 +87,9 @@ const BottomSheet = ({children, isOpen, setIsOpen, height = '60%'}) => {
         style={styles.backdrop}
         onPress={() => {
           // slideDown();
-          // setTimeout(() => setIsOpen(false), 800);
+          // setTimeout(() => setIsOpen(false), 400);
         }}>
         <Animated.View
-          // {...panResponder.panHandlers}
           style={[
             styles.bottomSheet,
             {transform: [{translateY: slide}]},
@@ -143,8 +121,6 @@ const styles = StyleSheet.create({
   bottomSheet: {
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
-    // paddingVertical: 12,
-    // paddingHorizontal: 16,
   },
 });
 export default BottomSheet;
